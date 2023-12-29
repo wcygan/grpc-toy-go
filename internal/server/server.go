@@ -6,15 +6,15 @@ import (
 	"log"
 )
 
-type server struct {
+type Server struct {
 	pb.UnimplementedGreeterServer
 }
 
-func NewServer() *server {
-	return &server{}
+func NewServer() *Server {
+	return &Server{}
 }
 
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	log.Printf("Received: %v", in.GetName())
 	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
 }
