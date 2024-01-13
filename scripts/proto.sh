@@ -10,13 +10,14 @@ SERVICES=("hello")
 for SERVICE_NAME in "${SERVICES[@]}"; do
     echo "Processing service: $SERVICE_NAME"
 
+    mkdir -p golang/${SERVICE_NAME}
+
     # Run protoc for each service
     protoc --go_out=./golang --go_opt=paths=source_relative \
       --go-grpc_out=./golang --go-grpc_opt=paths=source_relative \
       ./${SERVICE_NAME}/*.proto
 
-    # Create directory and initialize go module
-    mkdir -p golang/${SERVICE_NAME}
+    # initialize go module
     cd golang/${SERVICE_NAME}
     go mod init \
       github.com/wcygan/grpc-toy-go/golang/${SERVICE_NAME} || true
